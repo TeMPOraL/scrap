@@ -1,6 +1,25 @@
 (in-package #:scrap)
 
+;;; TODO move all to #:scrap/ogloszenia24
+
 (defparameter *oglaszamy24-search-url* "http://www.oglaszamy24.pl/ogloszenia/")
+
+(defclass ad ()
+  ((title :initarg :title
+          :initform ""
+          :accessor title)
+   (url :initarg :url
+        :initform nil
+        :accessor url)
+   (summary :initarg :summary
+            :initform ""
+            :accessor summary)
+   (date :initarg :date
+         :initform nil
+         :accessor date)
+   (price :initarg :price
+          :initform nil
+          :accessor price)))
 
 (defun fetch-oglaszamy24-raw-results (search)
   (drakma:http-request *oglaszamy24-search-url*
@@ -18,11 +37,17 @@
         (ad-date-node (first (css:query "div.o_single_box > div:first-child > div:nth-child(4) > div:nth-child(6) strong" ad)))
         (ad-price-node (second (css:query "div.o_single_box > div:first-child > div:nth-child(4) > div:nth-child(6) strong" ad))))
 
-    (list (cons :title (node-text ad-title-node))
-          (cons :url (dom:get-attribute ad-title-node "href"))
-          (cons :content (node-text ad-description-node))
-          (cons :date (when ad-date-node (node-text ad-date-node)))
-          (cons :price (when ad-price-node (node-text ad-price-node))))))
+    (make-instance 'ad
+                   :title (node-text ad-title-node)
+                   :url (dom:get-attribute ad-title-node "href")
+                   :summary (node-text ad-description-node)
+                   :date (when ad-date-node (node-text ad-date-node))
+                   :price (when ad-price-node (node-text ad-price-node)))))
+
+(defmethod print-object ((ad ad) stream)
+  (print-unreadable-object (ad stream :type t :identity t)
+    (with-slots (title date price) ad
+      (format stream "~A -- ~A ~A" title date price))))
 
 (defun process-ads (ad-node-list)
   (mapcar #'process-ad ad-node-list))
