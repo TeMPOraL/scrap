@@ -57,3 +57,12 @@
 
 (defun fetch-oglaszamy24-results (search)
   (list-ads (fetch-oglaszamy24-dom search)))
+
+(defun ads-to-rss (ads &key (stream *standard-output*) (encoding "ISO-8859-2"))
+  (xml-emitter:with-rss2 (stream :encoding encoding)
+    (xml-emitter:rss-channel-header "Some RSS" "http://example.com")
+    (mapc (lambda (item)
+            (xml-emitter:rss-item (title item)
+                                  :link (url item)
+                                  :description (summary item)))
+          ads)))

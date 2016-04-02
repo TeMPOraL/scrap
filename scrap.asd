@@ -21,7 +21,8 @@
                #:cl-ppcre
                #:chtml-matcher
                #:cxml
-               #:css-selectors)
+               #:css-selectors
+               #:xml-emitter)
 
   :components ((:file "package")
                (:file "version")
