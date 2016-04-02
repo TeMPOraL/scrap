@@ -14,10 +14,15 @@
 
 (defun process-ad (ad)
   (let ((ad-title-node (css:query1 "a.o_title" ad))
-        (ad-description-node (css:query1 "div.o_single_box > div:first-child > div:nth-child(4) > div:nth-child(4)" ad)))
+        (ad-description-node (css:query1 "div.o_single_box > div:first-child > div:nth-child(4) > div:nth-child(4)" ad))
+        (ad-date-node (first (css:query "div.o_single_box > div:first-child > div:nth-child(4) > div:nth-child(6) strong" ad)))
+        (ad-price-node (second (css:query "div.o_single_box > div:first-child > div:nth-child(4) > div:nth-child(6) strong" ad))))
 
-    (list (node-text ad-title-node)
-          (node-text ad-description-node))))
+    (list (cons :title (node-text ad-title-node))
+          (cons :url (dom:get-attribute ad-title-node "href"))
+          (cons :content (node-text ad-description-node))
+          (cons :date (when ad-date-node (node-text ad-date-node)))
+          (cons :price (when ad-price-node (node-text ad-price-node))))))
 
 (defun process-ads (ad-node-list)
   (mapcar #'process-ad ad-node-list))
