@@ -24,6 +24,7 @@
 (defun fetch-oglaszamy24-raw-results (search)
   (drakma:http-request *oglaszamy24-search-url*
                        :method :POST
+                       :external-format-in :ISO-8859-2
                        :external-format-out :UTF-8
                        :parameters `(("keyword" . ,search))))
 
@@ -58,7 +59,7 @@
 (defun fetch-oglaszamy24-results (search)
   (list-ads (fetch-oglaszamy24-dom search)))
 
-(defun ads-to-rss (ads &key (stream *standard-output*) (encoding "ISO-8859-2"))
+(defun ads-to-rss (ads &key (stream *standard-output*) (encoding "utf-8"))
   (xml-emitter:with-rss2 (stream :encoding encoding)
     (xml-emitter:rss-channel-header "Some RSS" "http://example.com")
     (mapc (lambda (item)

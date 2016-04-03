@@ -22,7 +22,8 @@
                #:chtml-matcher
                #:cxml
                #:css-selectors
-               #:xml-emitter)
+               #:xml-emitter
+               #:hunchentoot)
 
   :components ((:file "package")
                (:file "version")
@@ -30,5 +31,6 @@
                (:file "utils")
 
                (:file "oglaszamy24")
+               (:file "webservice")
 
                (:file "main")))

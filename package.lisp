@@ -2,4 +2,6 @@
   (:use #:cl
         #:alexandria)
 
-  (:export #:*version*))
+  (:export #:*version*
+           #:start-webservice
+           #:stop-webservice))
