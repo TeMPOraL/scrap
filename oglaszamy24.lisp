@@ -7,9 +7,8 @@
 (defvar *oglaszamy24-seen-ads* (make-hash-table :test 'equal))
 
 (defun add-ad (ad-key ad-obj)           ;FIXME make it cleaner
-   (setf (gethash ad-key *oglaszamy24-seen-ads*) ad-obj)
-   ;; (unless (gethash ad-key *oglaszamy24-seen-ads*))
-   )
+  (unless (gethash ad-key *oglaszamy24-seen-ads*)
+    (setf (gethash ad-key *oglaszamy24-seen-ads*) ad-obj)))
 
 (defun has-ad-p (ad-key)
   (multiple-value-bind (val found) (gethash ad-key *oglaszamy24-seen-ads*)

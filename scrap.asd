@@ -24,7 +24,8 @@
                #:css-selectors
                #:xml-emitter
                #:hunchentoot
-               #:local-time)
+               #:local-time
+               #:trivial-timers)
 
   :components ((:file "package")
                (:file "version")
@@ -33,5 +34,6 @@
 
                (:file "oglaszamy24")
                (:file "webservice")
+               (:file "alert-service")
 
                (:file "main")))

@@ -4,4 +4,6 @@
 
   (:export #:*version*
            #:start-webservice
-           #:stop-webservice))
+           #:stop-webservice
+           #:start-alert-service
+           #:stop-alert-service))
