@@ -23,7 +23,8 @@
                #:cxml
                #:css-selectors
                #:xml-emitter
-               #:hunchentoot)
+               #:hunchentoot
+               #:local-time)
 
   :components ((:file "package")
                (:file "version")
