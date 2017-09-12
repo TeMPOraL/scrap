@@ -25,7 +25,8 @@
                #:xml-emitter
                #:hunchentoot
                #:local-time
-               #:trivial-timers)
+               #:trivial-timers
+               #:cl-pushover)
 
   :components ((:file "package")
                (:file "version")

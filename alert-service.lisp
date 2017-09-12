@@ -1,5 +1,6 @@
 (in-package #:scrap)
 
+(defparameter *search-term* "maka paka")
 (defvar *alert-service-timer* nil)
 
 ;;; TODO a way of generating 
@@ -19,4 +20,15 @@
 (defun alert-service-active-p ()
   (when (and *alert-service-timer*
              (trivial-timers:timer-scheduled-p *alert-service-timer*))
-    (values t TODO)))
+    t))
+
+
+
+(defun process-alert-service ()
+  (let* ((search (ignore-errors (fetch-oglaszamy24-dom *search-term*)))
+         (ads (when search
+                (list-ads search))))
+    ;; TODO actual implementation
+    ;; 1. cache results by ID or datetime or something to a hash table
+    ;; 2. launch Pushover notification if new ads detected
+    ))
